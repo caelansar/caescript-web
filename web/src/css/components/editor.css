@@ -1,0 +1,126 @@
+.editor > textarea {
+  display: none;
+}
+
+/* editor styles */
+.CodeMirror {
+  width: 100vw;
+  height: 100%;
+  color: #666;
+  background: var(--color-gray-lighter);
+  font-family: var(--font-family-code);
+  line-height: 1.4;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.CodeMirror-gutters {
+  border-right: none;
+  background: var(--color-gray-light);
+}
+
+.CodeMirror-linenumber {
+  color: #d3d3d3;
+}
+
+.CodeMirror-focused .CodeMirror-selected {
+  background: #94e8df;
+}
+
+.CodeMirror-selected {
+  background: #d9d9d9;
+}
+
+.CodeMirror-focused .CodeMirror-selected {
+  background: #94e8df;
+}
+
+.CodeMirror-crosshair {
+  cursor: crosshair;
+}
+
+.CodeMirror-line::selection,
+.CodeMirror-line > span::selection,
+.CodeMirror-line > span > span::selection {
+  background: #94e8df;
+}
+
+.CodeMirror-line::-moz-selection,
+.CodeMirror-line > span::-moz-selection,
+.CodeMirror-line > span > span::-moz-selection {
+  background: #94e8df;
+}
+
+/* `caescript` theme */
+.cm-s-caescript .cm-keyword {
+  color: #708;
+}
+
+.cm-s-caescript .cm-atom {
+  color: #219;
+}
+
+.cm-s-caescript .cm-number {
+  color: #164;
+}
+
+.cm-s-caescript .cm-def {
+  color: #00f;
+}
+
+.cm-s-caescript .cm-variable,
+.cm-s-caescript .cm-variable-2 {
+  color: #05a;
+}
+
+.cm-s-caescript .cm-variable-2 {
+  color: #05a;
+}
+
+.cm-s-caescript .cm-variable-3,
+.cm-s-caescript .cm-type {
+  color: #085;
+}
+
+.cm-s-caescript .cm-comment {
+  color: #555;
+}
+
+.cm-s-caescript .cm-string {
+  color: #a11;
+}
+
+.cm-s-caescript .cm-string-2 {
+  color: #f50;
+}
+
+.cm-s-caescript .cm-meta {
+  color: #555;
+}
+
+.cm-s-caescript .cm-qualifier {
+  color: #555;
+}
+
+.cm-s-caescript .cm-builtin {
+  color: #30a;
+}
+
+.cm-s-caescript .cm-bracket {
+  color: #997;
+}
+
+.cm-s-caescript .cm-tag {
+  color: #170;
+}
+
+.cm-s-caescript .cm-attribute {
+  color: #00c;
+}
+
+.cm-s-caescript .cm-hr {
+  color: #999;
+}
+
+.cm-s-caescript .cm-link {
+  color: #00c;
+}
