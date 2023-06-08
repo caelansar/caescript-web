@@ -81,7 +81,17 @@ puts(hash["age"]);`,
   }
 };
 
-factorial(5) // 120`,
+puts(factorial(5)) // 120
+
+let fib = fn(n) {
+  if (n == 1 || n == 2) {
+    1
+  } else {
+    fib(n - 1) + fib(n - 2)
+  }
+};
+
+puts(fib(10)) // 55`,
   },
 
   {
