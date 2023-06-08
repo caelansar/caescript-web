@@ -38,11 +38,25 @@ export const Command = {
     const value = Command.getValue();
 
     Command.clear();
-    Command.print(value === '' ? '' : Module.eval(value));
+    Command.print_obj(value === '' ? null : Module.eval(value));
   },
 
   getValue: () => editor.getValue(),
   setValue: (value) => editor.setValue(value),
+
+  print_obj: (obj) => {
+    if (obj != null) {
+        const now = new Date();
+        const time = date2time(now);
+        lastUpdated.textContent = `LAST UPDATE: ${time} | ELAPSE: ${obj.elapse}ms`;
+        lastUpdated.dateTime = now.toISOString();
+        lastUpdated.style.display = 'block';
+
+        output.innerHTML += escape(`${obj.res}\n`);
+
+        outputContainer.scrollTop = outputContainer.scrollHeight - outputContainer.clientHeight;
+    }
+  },
 
   print: (str) => {
     const now = new Date();

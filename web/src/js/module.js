@@ -6,6 +6,14 @@ export let Module = {};
 init().then(()=> {
 Module = {
   isReady: () => true,
-  eval: cae_eval,
+  eval: (str) => {
+      const now = Date.now();
+      let res = cae_eval(str);
+      const elapse = Date.now() - now;
+      return {
+          res: res,
+          elapse: elapse
+      }
+  },
 };
 })

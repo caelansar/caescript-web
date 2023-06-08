@@ -17,6 +17,18 @@ export const SNIPPETS = [
   puts("Hello");
 } else {
   puts("unreachable");
+}
+
+if (true || false) {
+  puts("true || false");
+} else {
+  puts("unreachable");
+}
+
+if (true && false) {
+  puts("unreachable");
+} else {
+  puts("true && false");
 }`,
   },
 
