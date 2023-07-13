@@ -2,9 +2,16 @@ use std::{cell::RefCell, rc::Rc};
 
 use caescript::{
     ast::Program,
-    eval::{builtin::new_builtins, env::Environment, object::Object, Evaluator},
+    compiler::Compiler,
+    eval::{
+        builtin::{self},
+        env::Environment,
+        object::Object,
+        Evaluator,
+    },
     lexer::Lexer,
     parser::Parser,
+    vm::VM,
 };
 use wasm_bindgen::prelude::*;
 
@@ -15,7 +22,7 @@ extern "C" {
 
 fn parse(input: &str) -> Result<Program, String> {
     let mut parser = Parser::new(Lexer::new(input));
-    let program = parser.parse_program();
+    let program = parser.parse_program().unwrap();
     let errors = parser.errors();
 
     if errors.len() > 0 {
@@ -37,21 +44,22 @@ pub fn cae_eval(input: &str) -> String {
         Err(msg) => return msg,
     };
 
-    let mut env = Environment::from_store(new_builtins());
-
-    env.set(
-        String::from("puts"),
-        Object::Builtin(|args| {
+    let mut compiler = Compiler::new_with_builtins(|| {
+        builtin::update_builtins("puts".to_string(), |args| {
             for arg in args {
                 cae_print(&format!("{}", arg));
             }
             Object::Null
-        }),
-    );
+        })
+    });
+    let bytecode = compiler.compile(&program).unwrap();
 
-    let mut evaluator = Evaluator::new(Rc::new(RefCell::new(env)));
-    let evaluated = evaluator.eval(&program).unwrap_or(Object::Null);
-    format!("{}", evaluated)
+    let mut vm = VM::new(bytecode);
+    vm.run();
+
+    let val = vm.last_popped().unwrap();
+
+    format!("{}", val)
 }
 
 #[cfg(test)]
