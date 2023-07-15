@@ -52,12 +52,15 @@ pub fn cae_eval(input: &str) -> String {
             Object::Null
         })
     });
-    let bytecode = compiler.compile(&program).unwrap();
+    let bytecode = match compiler.compile(&program) {
+        Ok(bytecode) => bytecode,
+        Err(err) => return err.to_string(),
+    };
 
     let mut vm = VM::new(bytecode);
     vm.run();
 
-    let val = vm.last_popped().unwrap();
+    let val = vm.last_popped().unwrap_or(Object::Null);
 
     format!("{}", val)
 }
