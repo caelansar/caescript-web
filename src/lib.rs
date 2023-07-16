@@ -38,7 +38,28 @@ fn parse(input: &str) -> Result<Program, String> {
 }
 
 #[wasm_bindgen]
-pub fn cae_eval(input: &str) -> String {
+pub fn cae_interpreter_eval(input: &str) -> String {
+    let program = match parse(&input) {
+        Ok(program) => program,
+        Err(msg) => return msg,
+    };
+
+    let env = Environment::from_store(builtin::new_custom_builtins(|| {
+        builtin::update_builtins("puts".to_string(), |args| {
+            for arg in args {
+                cae_print(&format!("{}", arg));
+            }
+            Object::Null
+        })
+    }));
+
+    let mut evaluator = Evaluator::new(Rc::new(RefCell::new(env)));
+    let evaluated = evaluator.eval(&program).unwrap_or(Object::Null);
+    format!("{}", evaluated)
+}
+
+#[wasm_bindgen]
+pub fn cae_vm_eval(input: &str) -> String {
     let program = match parse(&input) {
         Ok(program) => program,
         Err(msg) => return msg,

@@ -13,6 +13,7 @@ const run = document.getElementById('run');
 const outputContainer = document.getElementById('output-container');
 const output = document.getElementById('output');
 const lastUpdated = document.getElementById('last-updated');
+const engine = document.getElementById('engine');
 
 const noop = () => {};
 
@@ -38,7 +39,11 @@ export const Command = {
     const value = Command.getValue();
 
     Command.clear();
-    Command.print_obj(value === '' ? null : Module.eval(value));
+    if (engine.value === "vm") {
+        Command.print_obj(value === '' ? null : Module.vm_eval(value));
+    } else {
+        Command.print_obj(value === '' ? null : Module.interpreter_eval(value));
+    }
   },
 
   getValue: () => editor.getValue(),
