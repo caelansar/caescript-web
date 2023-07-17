@@ -40,9 +40,9 @@ export const Command = {
 
     Command.clear();
     if (engine.value === "vm") {
-        Command.print_obj(value === '' ? null : Module.vm_eval(value));
+        Command.print_obj(value === '' ? null : Module.eval(Module.vm_eval, value));
     } else {
-        Command.print_obj(value === '' ? null : Module.interpreter_eval(value));
+        Command.print_obj(value === '' ? null : Module.eval(Module.interpreter_eval, value));
     }
   },
 

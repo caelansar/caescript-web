@@ -6,23 +6,20 @@ export let Module = {};
 init().then(()=> {
 Module = {
   isReady: () => true,
-  vm_eval: (str) => {
+  eval: (fn, str) => {
       const now = Date.now();
-      let res = cae_vm_eval(str);
+      let res = fn(str);
       const elapse = Date.now() - now;
       return {
           res: res,
           elapse: elapse
       }
   },
+  vm_eval: (str) => {
+      return cae_vm_eval(str);
+  },
   interpreter_eval: (str) => {
-      const now = Date.now();
-      let res = cae_interpreter_eval(str);
-      const elapse = Date.now() - now;
-      return {
-          res: res,
-          elapse: elapse
-      }
+      return cae_interpreter_eval(str);
   },
 };
 })
