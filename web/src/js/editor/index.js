@@ -14,6 +14,7 @@ const outputContainer = document.getElementById('output-container');
 const output = document.getElementById('output');
 const lastUpdated = document.getElementById('last-updated');
 const engine = document.getElementById('engine');
+const loader = document.getElementById("loader");
 
 const noop = () => {};
 
@@ -31,7 +32,7 @@ export const Command = {
     editor.setValue(value);
   },
 
-  run: () => {
+  run: async () => {
     if (!Module.isReady()) {
       return;
     }
@@ -127,9 +128,19 @@ document.addEventListener(
 
 run.addEventListener(
   'click',
-  (e) => {
+  async (e) => {
     e.preventDefault();
-    Command.run();
+    loader.style.display = "inline-block";
+
+    await new Promise(resolve => setTimeout(resolve, 10));
+
+    try {
+      await Command.run();
+    } catch (error) {
+      console.error(`run failed: ${error}`);
+    } finally {
+      loader.style.display = "none";
+    }
   },
   false,
 );

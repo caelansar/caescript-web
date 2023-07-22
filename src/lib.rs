@@ -3,12 +3,7 @@ use std::{cell::RefCell, rc::Rc};
 use caescript::{
     ast::Program,
     compiler::Compiler,
-    eval::{
-        builtin::{self},
-        env::Environment,
-        object::Object,
-        Evaluator,
-    },
+    eval::{builtin, env::Environment, object::Object, Evaluator},
     lexer::Lexer,
     parser::Parser,
     vm::VM,
