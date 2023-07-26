@@ -32,7 +32,7 @@ export const Command = {
     editor.setValue(value);
   },
 
-  run: async () => {
+  run: () => {
     if (!Module.isReady()) {
       return;
     }
@@ -128,19 +128,14 @@ document.addEventListener(
 
 run.addEventListener(
   'click',
-  async (e) => {
+  (e) => {
     e.preventDefault();
     loader.style.display = "inline-block";
 
-    await new Promise(resolve => setTimeout(resolve, 10));
-
-    try {
-      await Command.run();
-    } catch (error) {
-      console.error(`run failed: ${error}`);
-    } finally {
-      loader.style.display = "none";
-    }
+     setTimeout(() => {
+         Command.run();
+         loader.style.display = "none";
+     }, 30);
   },
   false,
 );

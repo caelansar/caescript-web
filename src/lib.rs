@@ -76,7 +76,7 @@ pub fn cae_vm_eval(input: &str) -> String {
     let mut vm = VM::new(bytecode);
     vm.run();
 
-    let val = vm.last_popped().unwrap_or(Object::Null);
+    let val = vm.last_popped().unwrap_or(Object::Null.into());
 
     format!("{}", val)
 }
