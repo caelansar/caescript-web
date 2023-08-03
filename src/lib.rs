@@ -73,6 +73,9 @@ pub fn cae_vm_eval(input: &str) -> String {
         Err(err) => return err.to_string(),
     };
 
+    let ins = bytecode.instructions.to_string();
+    cae_print(&format!("bytecode:\n{}", ins.to_string()));
+
     let mut vm = VM::new(bytecode);
     vm.run();
 
