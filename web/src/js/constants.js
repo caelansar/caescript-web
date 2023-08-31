@@ -72,6 +72,15 @@ puts(hash["age"]);`,
   },
 
   {
+    label: 'Bit',
+    value: `puts(1 & 2);
+puts(1 | 2);
+puts(1 & 2);
+puts(1 << 2);
+puts(4 >> 2);`,
+  },
+
+  {
     label: 'Function',
     value: `let factorial = fn(n) {
   if (n == 0) {
