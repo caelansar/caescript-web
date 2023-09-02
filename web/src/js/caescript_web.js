@@ -1,4 +1,4 @@
-import { cae_print } from './index.js';
+import { cae_print, cae_print_bytecode } from './index.js';
 
 let wasm;
 
@@ -165,6 +165,9 @@ function __wbg_get_imports() {
     imports.wbg = {};
     imports.wbg.__wbg_caeprint_0bb8196ce6c54856 = function(arg0, arg1) {
         cae_print(getStringFromWasm0(arg0, arg1));
+    };
+    imports.wbg.__wbg_caeprintbytecode_ce5bd037168f5c1a = function(arg0, arg1) {
+        cae_print_bytecode(getStringFromWasm0(arg0, arg1));
     };
 
     return imports;

@@ -15,6 +15,11 @@ extern "C" {
     fn cae_print(input: &str);
 }
 
+#[wasm_bindgen(module = "/web/src/js/index.js")]
+extern "C" {
+    fn cae_print_bytecode(input: &str);
+}
+
 fn parse(input: &str) -> Result<Program, String> {
     let mut parser = Parser::new(Lexer::new(input));
     let program = parser.parse_program().unwrap();
@@ -74,7 +79,7 @@ pub fn cae_vm_eval(input: &str) -> String {
     };
 
     let ins = bytecode.instructions.to_string();
-    cae_print(&format!("bytecode:\n{}", ins.to_string()));
+    cae_print_bytecode(&format!("{}", ins.to_string()));
 
     let mut vm = VM::new(bytecode);
     vm.run();

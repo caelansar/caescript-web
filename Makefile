@@ -14,6 +14,6 @@ build_wasm:
 
 .PHONY: build
 build: build_wasm
-	gsed "1c import { cae_print } from './index.js';" pkg/caescript_web.js > web/src/js/caescript_web.js
+	gsed "1c import { cae_print, cae_print_bytecode } from './index.js';" pkg/caescript_web.js > web/src/js/caescript_web.js
 	cp pkg/caescript_web_bg.wasm web/src/js/caescript_web_bg.wasm
 	cd web && yarn build

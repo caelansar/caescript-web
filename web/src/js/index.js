@@ -9,3 +9,7 @@ export function cae_print(str) {
   console.log(str);
   Command.print(str);
 }
+
+export function cae_print_bytecode(str) {
+  Command.print_bytecode(str);
+}

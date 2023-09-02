@@ -11,7 +11,9 @@ import './share';
 const source = document.getElementById('source');
 const run = document.getElementById('run');
 const outputContainer = document.getElementById('output-container');
+const bytecodeContainer = document.getElementById('bytecode-container');
 const output = document.getElementById('output');
+const bytecode = document.getElementById('bytecode');
 const lastUpdated = document.getElementById('last-updated');
 const engine = document.getElementById('engine');
 const loader = document.getElementById("loader");
@@ -64,6 +66,11 @@ export const Command = {
     }
   },
 
+  print_bytecode: (str) => {
+    bytecode.innerHTML += escape(`${str}\n`);
+    bytecodeContainer.scrollTop = bytecodeContainer.scrollHeight - bytecodeContainer.clientHeight;
+  },
+
   print: (str) => {
     const now = new Date();
     const time = date2time(now);
@@ -81,6 +88,8 @@ export const Command = {
     lastUpdated.style.display = 'none';
     output.innerHTML = '';
     outputContainer.scrollTop = 0;
+    bytecode.innerHTML = '';
+    bytecodeContainer.scrollTop = 0;
   },
 
   format: () => {
