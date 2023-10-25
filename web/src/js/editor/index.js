@@ -1,6 +1,7 @@
 import escape from 'escape-html';
 import LZString from 'lz-string';
 import CodeMirror from 'codemirror';
+import 'codemirror/addon/comment/comment';
 import { SHARE_QUERY_KEY, SNIPPETS } from '../constants';
 import { Module } from '../module';
 import { date2time } from './utils';
@@ -27,6 +28,10 @@ const editor = CodeMirror.fromTextArea(source, {
   lineNumbers: true,
   lineWrapping: true,
   smartIndent: true,
+  extraKeys: {
+      "Ctrl-/": function(cm) {cm.execCommand("toggleComment")},
+      "Cmd-/": function(cm) {cm.execCommand("toggleComment")},
+  }
 });
 
 export const Command = {
