@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import 'codemirror/lib/codemirror.css';
+@import 'codemirror/addon/hint/show-hint.css';
 @import './variables.css';
 @import './base.css';
 @import './components/app.css';

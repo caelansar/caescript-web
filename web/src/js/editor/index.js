@@ -2,6 +2,7 @@ import escape from 'escape-html';
 import LZString from 'lz-string';
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/comment/comment';
+import 'codemirror/addon/hint/show-hint';
 import { SHARE_QUERY_KEY, SNIPPETS } from '../constants';
 import { Module } from '../module';
 import { date2time } from './utils';
@@ -21,6 +22,26 @@ const loader = document.getElementById("loader");
 
 const noop = () => {};
 
+var keywords = ["let", "fn", "break", "continue", "for", "if", "true", "false", "return", "null",
+    "len", "puts", "push", "first", "last", "rest"];
+
+// register compltee function
+CodeMirror.registerHelper("hint", "caescript", function(editor) {
+  var cur = editor.getCursor();
+  var token = editor.getTokenAt(cur);
+
+  // filter by current token
+  var list = keywords.filter(function(item) {
+    return item.startsWith(token.string);
+  });
+
+  return {
+    list: list,
+    from: CodeMirror.Pos(cur.line, token.start),
+    to: CodeMirror.Pos(cur.line, token.end)
+  };
+});
+
 const editor = CodeMirror.fromTextArea(source, {
   mode: 'caescript',
   theme: 'caescript',
@@ -31,6 +52,14 @@ const editor = CodeMirror.fromTextArea(source, {
   extraKeys: {
       "Ctrl-/": function(cm) {cm.execCommand("toggleComment")},
       "Cmd-/": function(cm) {cm.execCommand("toggleComment")},
+  },
+  hintOptions: { completeSingle: false }
+});
+
+// set trigger event
+editor.on("inputRead", function(cm, event) {
+  if (event.text.length === 1 || event.origin === '+delete') {
+    cm.showHint({completeSingle: false});
   }
 });
 
