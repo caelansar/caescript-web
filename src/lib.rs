@@ -22,19 +22,7 @@ extern "C" {
 
 fn parse(input: &str) -> Result<Program, String> {
     let mut parser = Parser::new(Lexer::new(input));
-    let program = parser.parse_program().unwrap();
-    let errors = parser.errors();
-
-    if errors.len() > 0 {
-        let msg = errors
-            .into_iter()
-            .map(|e| format!("{}\n", e))
-            .collect::<String>();
-
-        return Err(msg);
-    }
-
-    Ok(program)
+    parser.parse_program()
 }
 
 #[wasm_bindgen]
