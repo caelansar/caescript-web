@@ -14,7 +14,9 @@ share.addEventListener(
     const { protocol, host, pathname } = window.location;
     const value = LZString.compressToEncodedURIComponent(Command.getValue());
 
-    window.history.pushState({}, '', `${protocol}//${host}${pathname}?${SHARE_QUERY_KEY}=${value}`);
+    let url = `${protocol}//${host}${pathname}?${SHARE_QUERY_KEY}=${value}`;
+    window.history.pushState({}, '', url);
+    copyTextToClipboard(url);
 
     clearTimeout(timerId);
 
@@ -26,3 +28,11 @@ share.addEventListener(
   },
   false,
 );
+
+function copyTextToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Text successfully copied to clipboard');
+  }).catch(function(err) {
+    console.error('Could not copy text: ', err);
+  });
+}
